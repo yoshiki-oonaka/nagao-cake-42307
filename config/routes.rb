@@ -1,54 +1,34 @@
 Rails.application.routes.draw do
 
+　# 管理者用
   namespace :admin do
-    get 'orders/show'
+    root to: 'homes#top'
+    resources :items, only: [:new, :index, :create, :show, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update]
+    resources :customers, only: [:index, :show, :edit, :update]
+    resources :orders, only: [:show, :update]
+    resources :order_detas, only: [:update]
   end
 
-  namespace :admin do
-    resources :customers, only: [:index, :show, :edit]
-  end
-
-  namespace :admin do
-    resources :genres, only: [:index, :edit]
-  end
-
-  namespace :admin do
-    resources :items, only: [:new, :index, :show, :edit]
-  end
-
-  namespace :admin do
-    get 'homes/top'
-  end
-
+  # ユーザー用
   namespace :customer do
-    resources :addresses, only: [:index, :edit]
-  end
-
-  namespace :customer do
-    resources :orders, only: [:new, :thanx, :index, :show]
-  end
-
-  namespace :customer do
-    resources :customers, only: [:show, :edit, :check]
-  end
-
-  namespace :customer do
+    root to: 'homes#top'
+    get '/about' => 'homes#about', as: 'about'
     resources :items, only: [:index, :show]
+    resources :customers, only: [:show, :edit, :update, :check, :withdrawl]
+    resources :cart_items, only: [:index, :update, :destroy, :destroy_all,:create]
+    resources :orders, only: [:new, :log, :thanx, :create, :index, :show]
+    resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   end
 
-  namespace :customer do
-    get 'homes/top'
-    get 'homes/about'
-  end
-
-  # 顧客用
+    # ユーザー用
   # URL /customers/sign_in ~
-  devise_for :customers, skip: [:passwords], controllers: {
+  devise_for :customer, skip: [:passwords], controllers: {
     registrations: "customer/registrations",
     sessions: 'customer/sessions'
   }
 
-  # 管理者用
+   # 管理者用
   # URL /admin/sign_in ~
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"

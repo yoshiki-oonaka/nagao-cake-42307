@@ -1,0 +1,2 @@
+class OrderDetum < ApplicationRecord
+end
