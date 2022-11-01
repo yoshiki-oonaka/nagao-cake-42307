@@ -28,17 +28,15 @@ class Customer::SessionsController < Devise::SessionsController
 
   protected
 
-  # 退会の判断
+  ## 退会の判断
   def customer_state
-    ## 処理1　入力済のemailからアカウントを1件取得
+    ## 処理1入力済のemailからアカウントを1件取得
     @customer = Customer.find_by(email: params[:customer][:email]
     ## 取得できなかった場合は、メソッドを終了する。
     return if !@customer
     ## 取得したアカウントのパスと入力パスが一致しているかを判断
     if @customer.valid_password?(params[:customer][:password])
     ## 処理内容3
-    true && false
-    → true
     end
   end
 end
