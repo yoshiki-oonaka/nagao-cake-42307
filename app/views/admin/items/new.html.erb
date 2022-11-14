@@ -1,2 +1,49 @@
-<h1>Admin::Items#new</h1>
-<p>Find me in app/views/admin/items/new.html.erb</p>
+<p id="notice"></p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 pt-5 text-center bg-light">
+      <h6>商品新規登録</h6>
+    </div>
+  </div>
+
+  <%= form_with model: @genre do |f| %>
+  <div class="row mx-auto">
+    <tbody>
+
+      <tr>
+        <th>商品画像</th>
+        <td><%= f.file_field :image, accept: "image/*", class: "w-100 h-100" %></td>
+        <td><%= f.hidden_field :post_image_cache %></td>
+      </tr>
+
+      <tr>
+        <th>商品名</th>
+        <td><%= f.text_field :name, class:"form-control", placeholder: "商品名" %></td>
+      </tr>
+
+      <tr>
+        <th>商品説明</th>
+        <td><%= f.text_area :introduction, class: "form-control", placeholder: "ここに説明文を記述します" %></td>
+      </tr>
+
+      <tr>
+        <th>ジャンル</th>
+        <td><%= f.collection_select :genre_id, Genre.all , :id, :name, include_blank: "--選択してください--" %></td>
+      </tr>
+
+      <tr>
+        <th>税抜価格</th>
+        <td><%= f.text_field :price, class: "form-control", placeholder: "1000" %>円</td>
+      </tr>
+
+      <tr>
+        <th>販売ステータス</th>
+        <td></td>
+        <td><%= f.select :is_sales_status, [["販売中","false"], ["販売不可","true"]], include_blank: "--選択してください--" %></td>
+      </tr>
+
+    </tbody>
+  </div>
+  <% end %>
+</div>

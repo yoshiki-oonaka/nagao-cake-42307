@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+
+
+
   # ユーザー用
   # URL /customers/sign_in ~
   devise_for :customer, skip: [:passwords], controllers: {
@@ -14,9 +17,9 @@ Rails.application.routes.draw do
 
   }
 
+
  # 管理者用
   namespace :admin do
-    root to: 'homes#top'
     resources :items, only: [:new, :index, :create, :show, :edit, :update]
     resources :genres, only: [:index, :create, :edit, :update]
     resources :customers, only: [:index, :show, :edit, :update]
@@ -25,10 +28,14 @@ Rails.application.routes.draw do
   end
 
   # ユーザー用
-  namespace :customer do
+  scope module: 'customers' do
     root to: 'homes#top'
-    get '/about' => 'homes#about', as: 'about'
+    get 'about' => 'homes#about'
     resources :items, only: [:index, :show]
+  end
+
+  namespace :customer do
+    get '/about' => 'homes#about', as: 'about'
     resources :customers, only: [:show, :edit, :update, :check, :withdrawl]
     resources :cart_items, only: [:index, :update, :destroy, :destroy_all,:create]
     resources :orders, only: [:new, :thanx, :create, :index, :show]

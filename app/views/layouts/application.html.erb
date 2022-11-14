@@ -11,10 +11,10 @@
   </head>
 
   <body>
-    <header class="bg-white">
-      <nav class="navbar navbar-expand-lg navbar-white bg-white">
+    <header class="bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-white bg-dark">
         <div class="container">
-          <%= link_to image_tag("ケーキのアイコン.png"), "/" %>
+          <%= link_to image_tag("ロゴ.png"), root_path, size: '100x100' %>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -22,29 +22,29 @@
                 <ul class="navbar-nav ml-auto">
 
                   <!--管理者がログインしている時-->
-                  <%if admin_signed_in? %>
-                    <li class="nav-item">
-                      <%= link_to admin_items, class: "btn btn-outline-secondary" do %>
+                  <% if admin_signed_in? %>
+                    <li class="nav-item px-2">
+                      <%= link_to admin_items_path, class: "btn btn-outline-light" do %>
                         商品一覧
                       <% end %>
                     </li>
-                    <li class="nav-item">
-                      <%= link_to admin_customers, class: "btn btn-outline-secondary" do %>
+                    <li class="nav-item px-2">
+                      <%= link_to admin_customers_path, class: "btn btn-outline-light" do %>
                         会員一覧
                       <% end %>
                     </li>
-                    <li class="nav-item">
-                      <%= link_to admin_order, class: "btn btn-outline-secondary" do %>
+                    <li class="nav-item px-2">
+                      <%= link_to admin_order_path, class: "btn btn-outline-light" do %>
                         注文履歴一覧
                       <% end %>
                     </li>
-                    <li class"nav-item">
-                      <%= link_to admin_genres, class: "btn btn-outline-secondary" do %>
+                    <li class"nav-item px-2">
+                      <%= link_to admin_genres_path, class: "btn btn-outline-light" do %>
                         ジャンル一覧
                       <% end %>
                     </li>
-                    <li class="nav-item">
-                      <%= link_to destroy_admin_session, method: :delete, class: "btn btn-outline-secondary" do %>
+                    <li class="nav-item px-2">
+                      <%= link_to destroy_admin_session_path, method: :delete, class: "btn btn-outline-light" do %>
                         ログアウト
                       <% end %>
                     </li>
@@ -54,23 +54,60 @@
                     <li>
                       ようこそ、<%= current_customer.last_name + current_customer.first_name %>さん！
                     </li>
-                    <li class="nav-item">
-                      <%= link_to customer_customer, class: "btn btn-outline-secondary" do %>
+                    <li class="nav-item px-2">
+                      <%= link_to customer_customer_path, class: "btn btn-outline-light" do %>
                         マイページ
                       <% end %>
                     </li>
-                    <li class="nav-item">
-                      <%= link_to customer_items, class: "btn btn-outline-secondary" do %>
+                    <li class="nav-item px-2">
+                      <%= link_to customer_items_path, class: "btn btn-outline-light" do %>
                         商品一覧
                       <% end %>
                     </li>
-                    <li class="nav-item">
-                      <%= link_to
+                    <li class="nav-item px-2">
+                      <%= link_to customer_cart_items_path, class: "btn btn-outline-light" do %>
+                        カート
+                      <% end %>
                     </li>
+                    <li class="nav-item px-2">
+                      <%= link_to root_path, class: "btn btn-outline-light" do %>
+                        ログアウト
+                      <% end %>
+                    </li>
+
+                  <% else %>
+                    <li class="nav-item px-2 text-white">
+                      <%= link_to customer_about_path, class: "btn btn-outline-light" do %>
+                      About
+                      <% end %>
+                    </li>
+                    <li class="nav_item px-2">
+                      <%= link_to items_path, class: "btn btn-outline-light" do %>
+                        商品一覧
+                      <% end %>
+                    </li>
+                    <li class="nav-item px-2">
+                      <%= link_to new_customer_registration_path, class: "btn btn-outline-light" do %>
+                        新規登録
+                      <% end %>
+                    </li>
+                    <li class="nav-item px-2">
+                      <%= link_to new_customer_session_path, class: "btn btn-outline-light" do %>
+                        ログイン
+                      <% end %>
+                    </li>
+                  <% end %>
                 </ul>
+              </div>
         </div>
       </nav>
     </header>
+    </div>
     <%= yield %>
+    <footer>
+      <div class="container bg-dark">
+
+      </div>
+    </footer>
   </body>
 </html>
